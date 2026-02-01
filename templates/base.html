@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Short Link Service{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen">
+    <header class="bg-slate-900/80 backdrop-blur border-b border-white/10 shadow">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-semibold tracking-tight"><a href="{% url 'slinks:home' %}" class="hover:text-white">Short Link Service</a></h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    {% if user.is_authenticated %}
+                       <li>{{ user.username }}</li>
+                        <li><a href="{% url 'slinks:dashboard' %}" class="text-slate-200 hover:text-white">Dashboard</a></li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="text-slate-200 hover:text-white">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}" class="text-slate-200 hover:text-white">Login</a></li>
+                        <li><a href="{% url 'accounts:register' %}" class="text-slate-200 hover:text-white">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-10 flex-grow">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="border-t border-white/10 mt-10">
+        <div class="container mx-auto px-4 py-6 text-center text-slate-400">
+            &copy; 2024 Short Link Service. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
