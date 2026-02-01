@@ -17,4 +17,3 @@ class ShortLinkForm(forms.ModelForm):
         }
 
         
-    
