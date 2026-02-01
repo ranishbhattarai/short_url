@@ -1,9 +1,11 @@
-from os import link
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from slinks.forms import ShortLinkForm
 from slinks.models import ShortLink
 from django.contrib import messages
+from django.http import HttpResponseGone
+from django.utils import timezone
+from django.db.models import F
 
 
 # Create your views here.
@@ -32,8 +34,10 @@ def create(request):
 
 def redirect_view(request, short_key):
     short_link = get_object_or_404(ShortLink, short_key=short_key)
-    short_link.clicks += 1
-    short_link.save(update_fields=['clicks'])
+    if short_link.expires_at and short_link.expires_at <= timezone.localdate():
+        short_link.delete()
+        return HttpResponseGone('This short link has expired.')
+    ShortLink.objects.filter(pk=short_link.pk).update(clicks=F('clicks') + 1)
     return redirect(short_link.original_url)
 
 @login_required

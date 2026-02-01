@@ -15,6 +15,7 @@
                 <th class="py-3 px-4 text-left text-xs uppercase tracking-wider text-slate-400">Short URL</th>
                 <th class="py-3 px-4 text-left text-xs uppercase tracking-wider text-slate-400">Clicks</th>
                 <th class="py-3 px-4 text-left text-xs uppercase tracking-wider text-slate-400">Created At</th>
+                <th class="py-3 px-4 text-left text-xs uppercase tracking-wider text-slate-400">Expires On</th>
                 <th class="py-3 px-4 text-left text-xs uppercase tracking-wider text-slate-400">Actions</th>
             </tr>
         </thead>
@@ -25,6 +26,13 @@
                 <td class="py-3 px-4"><a href="{{ request.scheme }}://{{ request.get_host }}/{{ link.short_key }}" class="text-blue-400 hover:text-blue-300" target="_blank">{{ request.scheme }}://{{ request.get_host }}/{{ link.short_key }}</a></td>
                 <td class="py-3 px-4 text-slate-100">{{ link.clicks }}</td>
                 <td class="py-3 px-4 text-slate-300">{{ link.created_at|date:"Y-m-d" }}</td>
+                <td class="py-3 px-4 text-slate-300">
+                    {% if link.expires_at %}
+                        {{ link.expires_at|date:"Y-m-d" }}
+                    {% else %}
+                        Never
+                    {% endif %}
+                </td>
                 <td class="py-3 px-4">
                     <a href="{% url 'slinks:edit' link.short_key %}" class="text-slate-200 hover:text-white mr-4">Edit</a>
                     <a href="{% url 'slinks:delete' link.short_key %}" class="text-red-400 hover:text-red-300">Delete</a>

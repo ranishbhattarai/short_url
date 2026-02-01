@@ -38,9 +38,25 @@ def generate_secure_short_key(length=6):
 
 ** It helped me to prevent IntegrityError crashes and ensure every short_url get a unique key **
 
+### **Extra feature for efficiency**
+**Atomic Increament**
++ This updates click directly in the database, so concurrent requests don’t overwrite each other. This prevents lost counts and avoids an extra read-modify-write cycle. 
+```python
+ ShortLink.objects.filter(pk=short_link.pk).update(clicks=F('clicks') + 1)
+```
+**Expiration of short_link**
++ Added a optional expiration, The user can provide a expiration date while create(the expiration day is only accepted for next day).
++ When a link is expired, it’s deleted and a 410 response is returned. This prevents redirects and keeps the database clean.
++ Raised the error to not let user to set same day expiration.
+```python
+raise ValidationError('Expiration date must be in the future.')
+```
+
 
 ### **Frontend**
 + I have used HTML with Tailwind CSS to build a responsive UI. As Tailwind CSS is Mobile First Approach it was a best for the User Friendy and Responsive desgin for my project. With built in templates and large CSS library it was easy to build the frontend and to achive responsive UI
+
+
 
 
 ## Technology Stack

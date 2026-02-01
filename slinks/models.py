@@ -12,6 +12,7 @@ class ShortLink(models.Model):
     )
     original_url = models.URLField(max_length=2048)
     short_key = models.CharField(max_length=6, unique=True , blank=True)
+    expires_at = models.DateField(null=True, blank=True)
     clicks = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -27,5 +28,5 @@ class ShortLink(models.Model):
         super().save(*args, **kwargs)
         if is_new and not self.short_key:
             self.short_key = generate_secure_short_key(length=6)
-        super().save(*args, **kwargs)
+            super().save(*args, **kwargs)
 
