@@ -78,7 +78,7 @@ raise ValidationError('Expiration date must be in the future.')
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/ranishbhattarai/short_url
    ```
 
 2. **Create a virtual environment**
