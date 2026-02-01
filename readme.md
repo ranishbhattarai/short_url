@@ -36,7 +36,7 @@ def generate_secure_short_key(length=6):
 - I have added a while True loop to stop collision of same short_links on slinks/utils.py
 + It generates a random key, if already exsist in the databse, and returns only if it doesn't exsist, otherwise regenrates the short_link key
 
-** It helped me to prevent IntegrityError crashes and ensure every short_url get a unique key **
+**It helped me to prevent IntegrityError crashes and ensure every short_url get a unique key**
 
 ### **Extra feature for efficiency**
 **Atomic Increament**
