@@ -3,8 +3,10 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import ShortLink
 
-"""Django form for creating a ShortLink"""
+
 class ShortLinkForm(forms.ModelForm):
+    """Django form for creating a ShortLink."""
+    
     class Meta:
         model = ShortLink
         fields = ['original_url', 'expires_at']

@@ -22,11 +22,10 @@ class ShortLink(models.Model):
     def __str__(self):
         return self.short_key
     
-    # Overriding save method to generate short_key upon creation
     def save(self, *args, **kwargs):
-        is_new = self._state.adding
-        super().save(*args, **kwargs)
-        if is_new and not self.short_key:
+        """Override save method to generate a unique short key if not provided."""
+      
+        if self._state.adding and not self.short_key:
             self.short_key = generate_secure_short_key(length=6)
-            super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
