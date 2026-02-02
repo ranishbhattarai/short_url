@@ -56,9 +56,6 @@ raise ValidationError('Expiration date must be in the future.')
 ### **Frontend**
 + I have used HTML with Tailwind CSS to build a responsive UI. As Tailwind CSS is Mobile First Approach it was a best for the User Friendy and Responsive desgin for my project. With built in templates and large CSS library it was easy to build the frontend and to achive responsive UI
 
-
-
-
 ## Technology Stack
 
 - **Backend**: Django 6.0.1

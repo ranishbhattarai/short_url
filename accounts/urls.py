@@ -6,7 +6,7 @@ from .forms import LoginForm
 app_name = 'accounts'#namespace for accounts app, namespace helps to differentiate urls of different apps with same name
 # defining url pattern for register view
 urlpatterns = [
-    path('register/', views.register, name='register'),
-    path('login/', LoginView.as_view(template_name='registration/login.html', authentication_form=LoginForm), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', views.register, name='register'),# user registration
+    path('login/', LoginView.as_view(template_name='registration/login.html', authentication_form=LoginForm), name='login'),# user login
+    path('logout/', LogoutView.as_view(), name='logout'),# user logout
 ]
